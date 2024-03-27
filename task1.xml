@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="order">
+    <xs:complexType>
+      <xs:sequence>
+        
+        <xs:element name="cart-id" type="cartIdType"/>
+        
+        <xs:element name="items" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="line-item" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="sku" type="skuType"/>
+                    <xs:element name="qty" type="xs:integer"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="billing-address">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="addressline1" type="addressType"/>
+              <xs:element name="addressline2" type="addressType" minOccurs="0"/>
+              <xs:element name="addressline3" type="addressType" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="shipping-address">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="addressline1" type="addressType"/>
+              <xs:element name="addressline2" type="addressType" minOccurs="0"/>
+              <xs:element name="addressline3" type="addressType" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--  Custom types -->
+  <xs:simpleType name="cartIdType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="skuType">
+    <xs:restriction base="xs:string">
+      <xs:length value="10"/>
+      <xs:pattern value="[a-zA-Z0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="addressType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="60"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>  
